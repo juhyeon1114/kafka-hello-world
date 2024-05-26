@@ -1,0 +1,31 @@
+services:
+  zookeeper:
+    image: zookeeper:3.9.2
+    container_name: zookeeper_3.9.2
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+      - 8080:8080
+  kafka:
+    image: apache/kafka:3.7.0
+    depends_on:
+      - zookeeper
+    container_name: kafka_3.7.0
+    ports:
+      - 9092:9092
+    volumes:
+      - /mnt/wsl/Ubuntu/root/apps/kafka-hello-world/config:/mnt/shared/config
+  kafka-ui:
+    image: provectuslabs/kafka-ui:v0.7.2
+    container_name: kafka-ui_0.7.2
+    depends_on:
+      - kafka
+    ports:
+      - 8888:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_NAME: any_name
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+      KAFKA_BROKERCONNECT: kafka:9092
