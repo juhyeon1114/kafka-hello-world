@@ -15,17 +15,18 @@ services:
     ports:
       - 9092:9092
     volumes:
-      - /mnt/wsl/Ubuntu/root/apps/kafka-hello-world/config:/mnt/shared/config
-  kafka-ui:
-    image: provectuslabs/kafka-ui:v0.7.2
-    container_name: kafka-ui_0.7.2
-    depends_on:
-      - kafka
-    ports:
-      - 8888:8080
-    environment:
-      DYNAMIC_CONFIG_ENABLED: true
-      KAFKA_CLUSTERS_0_NAME: any_name
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
-      KAFKA_BROKERCONNECT: kafka:9092
+      - /mnt/wsl/Ubuntu/root/apps/kafka-hello-world/config:/mnt/shared/config # 설정파일
+      - /mnt/wsl/Ubuntu/root/apps/kafka-hello-world/data:/tmp/kafka-logs # 데이터
+#  kafka-ui:
+#    image: provectuslabs/kafka-ui:v0.7.2
+#    container_name: kafka-ui_0.7.2
+#    depends_on:
+#      - kafka
+#    ports:
+#      - 8888:8080
+#    environment:
+#      DYNAMIC_CONFIG_ENABLED: true
+#      KAFKA_CLUSTERS_0_NAME: any_name
+#      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+#      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+#      KAFKA_BROKERCONNECT: kafka:9092
